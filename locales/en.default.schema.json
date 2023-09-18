@@ -7,6 +7,33 @@
         "paragraph": "The settings_schema.json file controls the content of the Theme settings area of the theme editor. Settings in this file translate to global theme settings, which can be accessed through the Liquid settings object. [Learn more](https:\/\/shopify.dev\/themes\/architecture\/settings)"
       }
     },
+    "badges": {
+      "name": "Badges",
+      "settings": {
+        "new_in": {
+          "label": "New in badge days limit"
+        }
+      }
+    },
+    "fonts": {
+      "name": "Fonts",
+      "settings": {
+        "font_body": {
+          "label": "Body font",
+          "info": "The font used for body text"
+        },
+        "font_heading": {
+          "label": "Heading font",
+          "info": "The font used for heading text"
+        },
+        "header": {
+          "label": "Fonts"
+        },
+        "paragraph": {
+          "info": "Customize fonts for this theme."
+        }
+      }
+    },
     "favicon": {
       "name": "Favicon",
       "settings": {
@@ -206,17 +233,29 @@
         "header": "Background",
         "label": "Upload a background image"
       }
-    }
-  },
-  "fonts": {
-    "settings": {
-      "font_body": {
-        "label": "Body font",
-        "info": "The font used for body text"
+    },
+    "featured-products": {
+      "name": "Featured products",
+      "settings": {
+        "paragraph": "Add custom settings for this section. [Learn more](https:\/\/shopify.dev\/themes\/architecture\/settings)",
+        "collection": {
+          "label": "Collection"
+        },
+        "heading": {
+          "label": "Heading"
+        },
+        "products_to_show": {
+          "label": "Number of products to show"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "display_slider": {
+          "label": "Display slider"
+        }
       },
-      "font_heading": {
-        "label": "Heading font",
-        "info": "The font used for heading text"
+      "presets": {
+        "name": "Featured products"
       }
     }
   }

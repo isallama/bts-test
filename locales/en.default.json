@@ -4,7 +4,8 @@
     "log_out": "Log out",
     "register": "Register",
     "account": "Account",
-    "cart": "Bag"
+    "cart": "Bag",
+    "add_to_cart": "Add to cart"
   },
   "wishlist": {
     "title": "Wishlist"
@@ -22,6 +23,20 @@
     "password": {
       "text": "Please enter the password to enter the store.",
       "submit": "Submit"
+    }
+  },
+  "cart": {
+    "empty": "Your cart is empty"
+  },
+  "products": {
+    "product": {
+      "sold_out": "Sold out",
+      "new_in": "New in",
+      "on_sale": "Sale",
+      "add_to_cart": "Add to cart",
+      "choose_options": "Choose options",
+      "empty_title": "Product",
+      "empty_price": "£19.99"
     }
   }
 }

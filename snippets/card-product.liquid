@@ -1,0 +1,102 @@
+{% if product and product != empty %}
+    {% assign variant = product.selected_or_first_available_variant %}
+    <form method="post" action="/cart/add">
+        <div class="product-card group hover:cursor-pointer">
+            <div class="product relative">
+                {% if product.featured_media %}
+                    <div class="product__image relative mb-4">
+                        <img
+                            class="image"
+                            src="{{ product.featured_image | image_url: width: 1445 }}"
+                            alt="{{ product.title | escape }}"
+                            loading="lazy"
+                        >
+                        <button
+                            class="py-2 hidden sm:group-hover:block m-auto w-full absolute bottom-0 text-center bg-contrast-darkest text-contrast-lightest"
+                            data-action="add-to-cart"
+                            type="submit"
+                            {% if product.selected_or_first_available_variant.available == false %}
+                                disabled
+                            {% endif %}
+                        >
+                            {% if product.available != false %}{{ 'action.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="product__info">
+                    <button
+                        class="py-2 block sm:hidden product__add-to-cart w-full text-center bg-contrast-darkest text-contrast-lightest mb-4"
+                        data-action="add-to-cart"
+                        type="submit"
+                        {% if card_product.selected_or_first_available_variant.available == false %}
+                            disabled
+                        {% endif %}
+                    >
+                        {% if product.available != false %}{{ 'action.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+                    </button>
+                    <p class="product__vendor text-contrast-dark font-body text-sm mb-1">{{ product.vendor }}</p>
+                    <h3 class="product__title font-heading text-base mb-1">{{ product.title }}</h3>
+                    <div class="product__price font-heading text-base mb-1">
+                        {% if product.compare_at_price > product.price %}
+                            <span class="product__compare-price line-through">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                        <span class="product__price">{{ product.price | money }}</span>
+                    </div>
+                    <div class="product__variants pb-2">
+                        <div class="variant__values">
+                            {% for variant in product.variants %}
+                                <label class="px-2 py-1 border rounded-full text-sm">
+                                    <input
+                                        type="radio"
+                                        value="{{ variant.id }}"
+                                        name="id"
+                                        id="radio-{{ variant.id }}"
+                                        hidden
+                                        {% if variant.id == product.selected_or_first_available_variant.id %}
+                                            checked
+                                        {% endif %}
+                                    >
+                                    <span class="">{{ variant.title }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="product__badges absolute top-3 left-3 text-sm">
+                    {% comment %} BADGE - Sold out {% endcomment %}
+                    {% if product.available == false %}
+                        <span class="badge border bg-white rounded-full px-2 py-1 text-tertiary-darkest border-tertiary-darkest">
+                            {{ 'products.product.sold_out' | t }}
+                        </span>
+                    {% comment %} BADGE - On sale {% endcomment %}
+                    {% elsif product.compare_at_price > product.price and product.available %}
+                        <span class="badge border bg-white rounded-full px-2 py-1 text-secondary-dark border-secondary-dark">
+                            {{ 'products.product.on_sale' | t }}
+                        </span>
+                    {%- endif -%}
+                    {% comment %} BADGE - New in {% endcomment %}
+                    {% assign now = 'now' | date: '%s' %}
+                    {% assign published_at = product.published_at | date: '%s' %}
+                    {% assign seconds = new_in_badge_limit | times: 24 | times: 60 | times: 60 %}
+                    {% assign future_date = published_at | plus: seconds | date: "%s" %}
+
+                    {% if now < future_date %}
+                        <span class="badge border bg-white rounded-full px-2 py-1 text-primary-dark border-primary-dark">
+                            {{ 'products.product.new_in' | t }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+{% else %}
+    <div class="product-card">
+        <div class="product__image mb-8">
+            <div class="bg-gray-200 w-full h-96 h-[20rem]"></div>
+        </div>
+        <div class="product__info">
+            <h3 class="product__title font-heading text-base mb-1">{{ 'products.product.empty_title' | t }}</h3>
+            <p class="product__price font-heading text-base">{{ 'products.product.empty_price' | t }}</p>
+        </div>
+    </div>
+{% endif %}

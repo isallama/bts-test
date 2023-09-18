@@ -5,7 +5,9 @@
       <div class="col-span-2 md:col-span-4 order-2">
         <a class="block" href="{{ routes.root_url }}">
           {%- if settings.site_logo -%}
-            {{ settings.site_logo | image_url: width: 768 | image_tag: alt: settings.site_logo.alt, preload: true, class: 'h-8' }}
+            {{ settings.site_logo | image_url: width: 768 | image_tag: alt: settings.site_logo.alt, preload: true, class: 'h-8 site-logo' }}
+          {%- else -%}
+            <span>{{ shop.name }}</span>
           {%- endif -%}
         </a>
       </div>
@@ -29,6 +31,25 @@
   {% comment %} END - Desktop Menu{% endcomment %}
 </section>
 
+{% comment %} "blocks": [
+  {
+    "type": "link",
+    "name": "Link",
+    "settings": [
+      {
+        "type": "text",
+        "id": "menu_label",
+        "default": "Menu label",
+        "label": "Menu label"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      }
+    ]
+  }
+] {% endcomment %}
 {% schema %}
 {
   "name": "t:moonbase.sections.header.name",

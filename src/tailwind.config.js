@@ -59,6 +59,6 @@ module.exports = {
   plugins: [], 
   content: [
     path.resolve(__dirname, '**/*.js'),
-    path.resolve(__dirname, '../**/*.liquid')
+    path.resolve(__dirname, '../**/*.{liquid,css}')
   ]
 }

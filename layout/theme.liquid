@@ -4,17 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link
-      rel="preconnect"
-      href="https://cdn.shopify.com"
-      crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto+Mono:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    {%- unless settings.font_heading.system? and settings.font_body.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
     {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}
 
     {% if settings.favicon %}
@@ -37,7 +29,7 @@
 
   <body class="{{ template.name }}">
     <div {% unless request.page_type == 'captcha' %}id="app"{% endunless %}>
-      {% sections 'header-group' %}
+      {% section 'header' %}
       <main id="main" role="main">
         {{ content_for_layout }}
       </main>
@@ -59,10 +51,16 @@
         primary: {{ request.locale.primary | json }},
         domain: {{ request.host | json }}
       }
-      Moonbase.sections = [{
+      Moonbase.sections = [
+        {
           sections: ['header'],
           path: {{ 'moonbase-header.js' | asset_url | json }}
-        }]
+        },
+        { 
+          sections: ['featured-products'],
+          path: {{ 'featured-products.js' | asset_url | json }}
+        }
+      ]
       Moonbase.paths = {
         header: `{{ 'moonbase-header.js' | asset_url | json }}`
       }

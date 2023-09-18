@@ -19,3 +19,9 @@
 **/ 
 @import 'layout/_header';
 @import 'layout/_footer';
+@import 'layout/_featured-products';
+
+/**
+ * Swiper
+**/ 
+@import "swiper/swiper-bundle";

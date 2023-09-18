@@ -1,0 +1,118 @@
+{%- if section.settings.enable_quick_add -%}
+    <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+    <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<div class="featured-products py-12 px-6">
+    {% if section.settings.featured_products_heading != blank %}
+        <div class="featured-products__header text-center font-heading mb-8">
+            <h2>{{ section.settings.featured_products_heading }}</h2>
+        </div>
+    {% endif %}
+    {% comment %} START - Swiper {% endcomment %}
+    <div class="block sm:hidden featured-products__wrapper">
+        <div class="swiper">
+            <div class="swiper-wrapper featured-products__content">
+                {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+                    <div class="swiper-slide swiper-product-card">
+                        {% render 'card-product',
+                            product: product,
+                            media_aspect_ratio: section.settings.image_ratio,
+                            show_quick_add: section.settings.enable_quick_add,
+                            section_id: section.id,
+                            new_in_badge_limit: settings.new_in_badge_limit
+                        %}
+                    </div>
+                {%- else -%}
+                    {%- for item in (1..section.settings.products_to_show) -%}
+                        <div class="swiper-slide swiper-product-card__empty">
+                            {% render 'card-product',
+                                media_aspect_ratio: section.settings.image_ratio,
+                                show_quick_add: section.settings.enable_quick_add,
+                                section_id: section.id
+                            %}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination relative mt-8"></div>
+        </div>
+    </div>
+    {% comment %} END - Swiper {% endcomment %}
+    {% comment %} START - Grid {% endcomment %}
+    <div class="hidden sm:block featured-products__wrapper">
+        <div class="grid grid-cols-{{ section.settings.columns_desktop }} featured-products__content gap-4">
+            {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+                <div class="product-card">
+                    {% render 'card-product',
+                        product: product,
+                        media_aspect_ratio: section.settings.image_ratio,
+                        show_quick_add: section.settings.enable_quick_add,
+                        section_id: section.id,
+                        new_in_badge_limit: settings.new_in_badge_limit
+                    %}
+                </div>
+            {% else %}
+                {% for item in (1..section.settings.products_to_show) %}
+                    <div class="product-card__empty">
+                        {% render 'card-product',
+                            media_aspect_ratio: section.settings.image_ratio,
+                            show_quick_add: section.settings.enable_quick_add,
+                            section_id: section.id
+                        %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    {% comment %} END - Grid {% endcomment %}
+</div>
+
+{% schema %}
+{
+    "name": "t:sections.featured-products.name",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "t:sections.featured-products.settings.paragraph"
+        },
+        {
+            "type": "text",
+            "id": "featured_products_heading",
+            "default": "Featured products",
+            "label": "t:sections.featured-products.settings.heading.label"
+        },
+        {
+            "type": "collection",
+            "id": "collection",
+            "label": "t:sections.featured-products.settings.collection.label"
+        },
+        {
+            "type": "range",
+            "id": "products_to_show",
+            "min": 2,
+            "max": 12,
+            "step": 1,
+            "default": 4,
+            "label": "t:sections.featured-products.settings.products_to_show.label"
+        },
+        {
+            "type": "range",
+            "id": "columns_desktop",
+            "min": 2,
+            "max": 6,
+            "step": 1, 
+            "default": 4,
+            "label": "t:sections.featured-products.settings.columns_desktop.label"
+        }
+    ],
+    "presets": [
+        {
+            "name": "t:sections.featured-products.presets.name"
+        }
+    ]
+  }
+{% endschema %}

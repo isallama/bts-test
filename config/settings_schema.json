@@ -21,28 +21,42 @@
     ]
   },
   {
-    "name": "Fonts",
+    "name":"t:settings_schema.badges.name",
+    "settings":[
+      {
+        "type":"range",
+        "id":"new_in_badge_limit",
+        "min":2,
+        "max":60,
+        "step":2,
+        "default":30,
+        "label":"t:settings_schema.badges.settings.new_in.label"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.fonts.name",
     "settings": [
       {
         "type": "header",
-        "content": "t:fonts.settings.header"
+        "content": "t:settings_schema.fonts.settings.header.label"
       },
       {
         "type": "paragraph",
-        "content": "t:fonts.settings.paragraph"
+        "content": "t:settings_schema.fonts.settings.paragraph.info"
       },
       {
         "type": "font_picker",
         "id": "font_body",
-        "label": "t:fonts.settings.font_body.label",
-        "info": "t:fonts.settings.font_body.info",
+        "label": "t:settings_schema.fonts.settings.font_body.label",
+        "info": "t:settings_schema.fonts.settings.font_body.info",
         "default": "helvetica_n4"
       },
       {
         "type": "font_picker",
         "id": "font_heading",
-        "label": "t:fonts.settings.font_heading.label",
-        "info": "t:fonts.settings.font_heading.info",
+        "label": "t:settings_schema.fonts.settings.font_heading.label",
+        "info": "t:settings_schema.fonts.settings.font_heading.info",
         "default": "helvetica_n4"
       }
     ]

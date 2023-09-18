@@ -1,0 +1,16 @@
+<div class="py-12">
+    <h2 class="text-base font-heading mb-4">Cart</h2>
+    {% if cart.items.size > 0 %}
+        <div class="w-full">
+            {% for line_item in cart.items %}
+                <div class="mb-2">
+                    <span>{{ line_item.product.title }}</span> |
+                    <span>{{ line_item.variant.title }}</span>
+                    <span>x {{ line_item.quantity }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">{{ cart.empty | t }}</p>
+    {% endif %}
+</div>
